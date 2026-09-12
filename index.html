@@ -1,0 +1,1692 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Thần Số Học</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F4F0;
+    --surface: #FFFFFF;
+    --surface-soft: #FBFAF8;
+    --ink: #23211E;
+    --ink-soft: #6F6A64;
+    --ink-faint: #9A948C;
+    --border: #E6E1D9;
+    --primary: #3B5F5A;
+    --primary-ink: #FFFFFF;
+    --primary-tint: #E6EDEB;
+    --danger: #A34C3F;
+    --danger-tint: #F5E7E3;
+    --master: #9C7A22;
+    --master-tint: #F6EFDA;
+    --shadow: 0 1px 2px rgba(35,33,30,0.04), 0 10px 24px -12px rgba(35,33,30,0.10);
+    --radius-lg: 22px;
+    --radius-md: 14px;
+
+    /* Màu riêng cho từng số 1-9 (chỉ dùng cho chữ số lớn trong thẻ — nền/thẻ/nút vẫn theo 1 màu chủ đạo) */
+    --num-1: #B1543F;
+    --num-2: #4C6B8A;
+    --num-3: #A97A1F;
+    --num-4: #4B7355;
+    --num-5: #6B5B95;
+    --num-6: #A65B6D;
+    --num-7: #2E7D8C;
+    --num-8: #8A5A34;
+    --num-9: #48507A;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1C1A17;
+      --surface: #262320;
+      --surface-soft: #232120;
+      --ink: #F1EDE7;
+      --ink-soft: #B6AFA6;
+      --ink-faint: #857E75;
+      --border: #38342E;
+      --primary: #8FB6AE;
+      --primary-ink: #16211F;
+      --primary-tint: #26332F;
+      --danger: #D89184;
+      --danger-tint: #362521;
+      --master: #D9B65B;
+      --master-tint: #33291A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 14px 28px -14px rgba(0,0,0,0.5);
+
+      --num-1: #E0876F;
+      --num-2: #8FB2D6;
+      --num-3: #E0B450;
+      --num-4: #8FC7A0;
+      --num-5: #B4A0DE;
+      --num-6: #E0A0B0;
+      --num-7: #7FCBDB;
+      --num-8: #D4A468;
+      --num-9: #A9B0E0;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1C1A17;
+    --surface: #262320;
+    --surface-soft: #232120;
+    --ink: #F1EDE7;
+    --ink-soft: #B6AFA6;
+    --ink-faint: #857E75;
+    --border: #38342E;
+    --primary: #8FB6AE;
+    --primary-ink: #16211F;
+    --primary-tint: #26332F;
+    --danger: #D89184;
+    --danger-tint: #362521;
+    --master: #D9B65B;
+    --master-tint: #33291A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 14px 28px -14px rgba(0,0,0,0.5);
+
+    --num-1: #E0876F;
+    --num-2: #8FB2D6;
+    --num-3: #E0B450;
+    --num-4: #8FC7A0;
+    --num-5: #B4A0DE;
+    --num-6: #E0A0B0;
+    --num-7: #7FCBDB;
+    --num-8: #D4A468;
+    --num-9: #A9B0E0;
+  }
+
+  * { box-sizing: border-box; }
+  html { color-scheme: light dark; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Inter", sans-serif;
+    padding: 0 16px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding-block: 28px 64px; }
+
+  h1, h2, h3 { font-family: "Plus Jakarta Sans", sans-serif; text-wrap: balance; margin: 0; }
+
+  header.site {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin-bottom: 36px;
+  }
+  header.site .mark {
+    width: 30px; height: 30px;
+    border-radius: 9px;
+    background: var(--primary);
+    color: var(--primary-ink);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+  }
+
+  .hero h1 { font-size: clamp(1.7rem, 4vw, 2.3rem); line-height: 1.25; }
+  .hero .sub {
+    color: var(--ink-soft);
+    font-size: 1.02rem;
+    line-height: 1.6;
+    max-width: 56ch;
+    margin: 14px 0 28px;
+  }
+
+  form.intake {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .field input {
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--surface-soft);
+    color: var(--ink);
+  }
+  .field input:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 1px;
+  }
+  .field-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .field-row .field { flex: 1 1 200px; }
+
+  button.cta {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--primary-ink);
+    background: var(--primary);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 14px 20px;
+    cursor: pointer;
+  }
+  button.cta:hover { filter: brightness(1.05); }
+  button.cta:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+  .error-box {
+    margin-top: 14px;
+    background: var(--danger-tint);
+    color: var(--danger);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    font-size: 0.92rem;
+  }
+
+  section.results { margin-top: 44px; }
+  .results-heading { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+  .results-heading h2 { font-size: 1.4rem; }
+  .example-tag {
+    font-family: "Inter", sans-serif;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 2px 10px;
+  }
+  .results-note { color: var(--ink-soft); font-size: 0.92rem; margin: 4px 0 24px; }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 560px) {
+    .cards-grid { grid-template-columns: 1fr; }
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 20px 20px 18px;
+    display: flex;
+    flex-direction: column;
+  }
+  .card.hero-card {
+    grid-column: 1 / -1;
+    background: linear-gradient(160deg, var(--primary-tint), var(--surface) 65%);
+  }
+  .card .eyebrow {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .master-badge {
+    font-family: "Inter", sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--master);
+    background: var(--master-tint);
+    border: 1px solid color-mix(in srgb, var(--master) 45%, transparent);
+    border-radius: 999px;
+    padding: 1px 8px;
+    text-transform: none;
+  }
+  .card .number {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    color: var(--ink);
+    line-height: 1;
+    margin: 8px 0 10px;
+  }
+  .card.hero-card .number { font-size: 3.4rem; color: var(--primary); }
+  .card:not(.hero-card) .number { font-size: 2.2rem; }
+  .card.hero-card.master .number,
+  .card:not(.hero-card).master .number { color: var(--master); }
+
+  /* Mỗi số 1-9 có màu riêng cho chính con số (nền/thẻ/nút vẫn giữ 1 màu chủ đạo).
+     Dùng chung cho số trong thẻ kết quả, thẻ chu kỳ, viên năm trên timeline, và số trong lịch. */
+  .num-c1 { color: var(--num-1); }
+  .num-c2 { color: var(--num-2); }
+  .num-c3 { color: var(--num-3); }
+  .num-c4 { color: var(--num-4); }
+  .num-c5 { color: var(--num-5); }
+  .num-c6 { color: var(--num-6); }
+  .num-c7 { color: var(--num-7); }
+  .num-c8 { color: var(--num-8); }
+  .num-c9 { color: var(--num-9); }
+  .num-cm { color: var(--master); }
+
+  .card .meaning {
+    font-size: 0.96rem;
+    line-height: 1.6;
+    color: var(--ink);
+    margin: 0 0 6px;
+  }
+  .card details { margin-top: auto; padding-top: 8px; }
+  .card summary {
+    cursor: pointer;
+    font-family: "Inter", sans-serif;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--primary);
+    list-style: none;
+  }
+  .card summary::-webkit-details-marker { display: none; }
+  .card summary::before { content: "ⓘ "; }
+  .card summary:hover { text-decoration: underline; }
+  .card .steps {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 0.78rem;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-top: 8px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  /* Tab navigation (Bản đồ / Chu kỳ) */
+  .tabs {
+    display: flex;
+    gap: 22px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .tab-btn {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    background: none;
+    border: none;
+    padding: 10px 2px 12px;
+    cursor: pointer;
+    position: relative;
+  }
+  .tab-btn.active { color: var(--primary); }
+  .tab-btn.active::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 2px;
+  }
+
+  /* Hôm nay (Home) tab */
+  .home-greeting { margin-bottom: 24px; }
+  .home-greeting h1 { font-size: clamp(1.5rem, 4vw, 1.9rem); }
+  .home-date { color: var(--ink-soft); font-size: 0.95rem; margin-top: 4px; }
+
+  /* Khám phá (Explore) tab */
+  .explore-search { margin: 18px 0 22px; }
+  .explore-search input {
+    width: 100%;
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--surface-soft);
+    color: var(--ink);
+  }
+  .explore-search input:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+
+  .explore-group-label {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 22px 0 10px;
+  }
+  .number-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  @media (min-width: 480px) {
+    .number-grid { grid-template-columns: repeat(6, 1fr); }
+  }
+  .number-tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow);
+    padding: 14px 6px;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+  }
+  .number-tile.selected { border-color: var(--primary); background: var(--primary-tint); }
+  .number-tile .tile-badge {
+    font-family: "Inter", sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .number-detail { margin-top: 28px; }
+  .number-detail-head {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .number-detail-head .big-number {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    font-size: 2.6rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+  .explore-sections {
+    display: grid;
+    gap: 12px;
+  }
+  .explore-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+  }
+  .explore-section .eyebrow { margin-bottom: 6px; }
+
+  /* Toggle "Xem chi tiết 7 phần" (Detail Page) cho Đường đời — dùng lại ở Bản đồ, Khám phá, Mọi người */
+  .life-path-detail-toggle { margin-top: 10px; }
+  .life-path-detail-toggle > summary {
+    cursor: pointer;
+    font-family: "Inter", sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--primary);
+    list-style: none;
+  }
+  .life-path-detail-toggle > summary::-webkit-details-marker { display: none; }
+  .life-path-detail-toggle > summary::before { content: "→ "; }
+  .life-path-detail-toggle > summary:hover { text-decoration: underline; }
+  .life-path-detail-sections { margin-top: 10px; }
+
+  /* Mọi người (People) tab */
+  .people-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 6px;
+  }
+  .btn-secondary {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--primary);
+    background: var(--primary-tint);
+    border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent);
+    border-radius: var(--radius-md);
+    padding: 9px 14px;
+    cursor: pointer;
+  }
+  .btn-text {
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    background: none;
+    border: none;
+    padding: 4px 2px;
+    cursor: pointer;
+  }
+  .btn-text:hover { color: var(--danger); }
+  .storage-note { color: var(--ink-faint); font-size: 0.82rem; margin: 4px 0 22px; }
+
+  .add-person-form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .add-person-form .field-row { display: flex; gap: 14px; flex-wrap: wrap; }
+  .add-person-form .field-row .field { flex: 1 1 180px; }
+  .add-person-form .form-actions { display: flex; gap: 10px; }
+
+  .people-empty {
+    background: var(--surface-soft);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-lg);
+    padding: 28px 20px;
+    text-align: center;
+    color: var(--ink-soft);
+    font-size: 0.94rem;
+  }
+  .people-empty .btn-secondary { margin-top: 14px; }
+
+  .people-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 560px) { .people-grid { grid-template-columns: 1fr; } }
+
+  .person-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 18px;
+  }
+  .person-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .avatar {
+    flex: 0 0 auto;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--primary-tint);
+    color: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+  }
+  .person-name { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 700; font-size: 1rem; }
+  .person-relationship { color: var(--ink-soft); font-size: 0.82rem; }
+  .person-chips { display: flex; gap: 18px; margin-bottom: 12px; }
+  .person-chip .chip-label { font-size: 0.68rem; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.05em; }
+  .person-chip .chip-num { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 1.4rem; }
+  .person-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .person-actions button { font-family: "Inter", sans-serif; font-size: 0.82rem; font-weight: 600; }
+  .person-full-detail { margin-top: 14px; display: grid; gap: 10px; }
+  .person-full-detail .explore-section { padding: 12px 14px; }
+
+  .compare-wrap {
+    margin-top: 32px;
+    border-top: 1px solid var(--border);
+    padding-top: 24px;
+  }
+  .compare-picker { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; margin: 14px 0 20px; }
+  .compare-picker .field { flex: 1 1 160px; }
+  .compare-picker select {
+    font-family: "Inter", sans-serif;
+    font-size: 0.95rem;
+    padding: 11px 12px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--surface-soft);
+    color: var(--ink);
+    width: 100%;
+  }
+  .compare-table { display: grid; gap: 10px; }
+  .compare-row {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 12px 16px;
+  }
+  .compare-row .eyebrow { margin-bottom: 8px; }
+  .compare-pair { display: flex; justify-content: space-between; gap: 12px; }
+  .compare-side { flex: 1; }
+  .compare-side .compare-person-name { font-size: 0.78rem; color: var(--ink-soft); margin-bottom: 2px; }
+  .compare-side .compare-num { font-family: "Plus Jakarta Sans", sans-serif; font-weight: 800; font-size: 1.5rem; }
+  .compare-side .compare-text { font-size: 0.88rem; line-height: 1.55; color: var(--ink); }
+  .compare-insight {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+  }
+  .compare-insight .eyebrow { margin-bottom: 6px; }
+  .compare-group-note { color: var(--ink-faint); font-size: 0.8rem; margin: -4px 0 4px; }
+
+  /* Chu kỳ tab */
+  .cycles-heading h2 { font-size: 1.4rem; margin-bottom: 4px; }
+
+  .timeline-wrap { margin: 18px 0 28px; }
+  .timeline {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: thin;
+  }
+  .year-pill {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 10px 16px;
+    font-family: "Inter", sans-serif;
+    cursor: pointer;
+    min-width: 64px;
+  }
+  .year-pill.current { border-color: var(--primary); background: var(--primary-tint); }
+  .year-pill-year { font-size: 0.72rem; color: var(--ink-soft); font-weight: 600; }
+  .year-pill-num {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .timeline-detail, .calendar-detail {
+    margin-top: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+  }
+  .timeline-detail-head, .calendar-detail-head {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin-bottom: 4px;
+  }
+
+  .calendar-wrap { margin-top: 30px; }
+  .calendar-head, .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+  .calendar-head span {
+    text-align: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding-bottom: 6px;
+  }
+  .cal-cell {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-family: "Inter", sans-serif;
+    cursor: pointer;
+    padding: 2px;
+  }
+  .cal-cell.empty { visibility: hidden; border: none; background: none; cursor: default; }
+  .cal-cell.today { border-color: var(--primary); background: var(--primary-tint); }
+  .cal-date { font-size: 0.78rem; color: var(--ink-soft); }
+  .cal-pd {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 800;
+    font-size: 1rem;
+    font-variant-numeric: tabular-nums;
+  }
+  @media (max-width: 480px) {
+    .cal-date { font-size: 0.68rem; }
+    .cal-pd { font-size: 0.88rem; }
+  }
+
+  .disclaimer {
+    margin-top: 48px;
+    font-size: 0.82rem;
+    line-height: 1.6;
+    color: var(--ink-faint);
+    border-top: 1px solid var(--border);
+    padding-top: 20px;
+  }
+  footer.site {
+    margin-top: 20px;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+  }
+
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="site">
+      <span class="mark" aria-hidden="true">✦</span>
+      Thần Số Học
+    </header>
+
+    <main>
+      <nav class="tabs" role="tablist">
+        <button class="tab-btn active" type="button" data-tab="home" role="tab" aria-selected="true">Hôm nay</button>
+        <button class="tab-btn" type="button" data-tab="explore" role="tab" aria-selected="false">Khám phá</button>
+        <button class="tab-btn" type="button" data-tab="map" role="tab" aria-selected="false">Bản đồ</button>
+        <button class="tab-btn" type="button" data-tab="cycles" role="tab" aria-selected="false">Chu kỳ</button>
+        <button class="tab-btn" type="button" data-tab="people" role="tab" aria-selected="false">Mọi người</button>
+      </nav>
+
+      <div id="panel-home" role="tabpanel">
+        <div class="home-greeting">
+          <h1 id="home-greeting-text"></h1>
+          <p class="home-date" id="home-date"></p>
+        </div>
+        <div class="cards-grid">
+          <div class="card hero-card" id="home-day-card"></div>
+        </div>
+        <div class="cards-grid" style="margin-top: 14px;">
+          <div class="card" id="home-month-card"></div>
+          <div class="card" id="home-year-card"></div>
+        </div>
+      </div>
+
+      <div id="panel-explore" role="tabpanel" hidden>
+        <h2>Khám phá thần số học</h2>
+        <p class="results-note">Chọn một con số để xem ý nghĩa của nó qua từng chỉ số: Đường đời, Biểu đạt, Linh hồn, Nhân cách, Ngày sinh và Năm cá nhân — không cần nhập tên hay ngày sinh.</p>
+
+        <div class="explore-search">
+          <input type="text" id="explore-search-input" placeholder="Tìm số (ví dụ: 5, 11)..." inputmode="numeric">
+        </div>
+
+        <div class="explore-group-label" id="explore-basic-label">Các con số</div>
+        <div class="number-grid" id="explore-basic-grid"></div>
+
+        <div class="explore-group-label" id="explore-master-label">Master Numbers</div>
+        <div class="number-grid" id="explore-master-grid"></div>
+
+        <div class="number-detail" id="explore-detail"></div>
+      </div>
+
+      <div id="panel-map" role="tabpanel" hidden>
+        <section class="hero">
+          <h1>Khám phá bản thân qua những con số của bạn</h1>
+          <p class="sub">Nhập họ tên và ngày sinh để xem các chỉ số thần số học theo hệ Pythagorean — kèm cách tính minh bạch cho từng con số, không chỉ đưa ra kết quả.</p>
+
+          <form class="intake" id="numerology-form">
+            <div class="field">
+              <label for="fullName">Họ và tên</label>
+              <input type="text" id="fullName" name="fullName" placeholder="Nguyễn Văn An" autocomplete="name" required>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="dateOfBirth">Ngày sinh</label>
+                <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+              </div>
+            </div>
+            <button class="cta" type="submit">Khám phá bản đồ của tôi</button>
+            <p class="error-box" id="error-box" hidden></p>
+          </form>
+        </section>
+
+        <section class="results" id="results-section" hidden>
+          <div class="results-heading">
+            <h2>Bản đồ của <span id="result-name"></span></h2>
+            <span class="example-tag" id="example-tag" hidden>ví dụ minh hoạ</span>
+          </div>
+          <p class="results-note" id="results-note"></p>
+          <div class="cards-grid" id="cards-grid"></div>
+        </section>
+      </div>
+
+      <div id="panel-cycles" role="tabpanel" hidden>
+        <div class="cycles-heading">
+          <h2>Chu kỳ của <span id="cycles-name"></span></h2>
+        </div>
+        <p class="results-note">Năm, tháng và ngày cá nhân hiện tại của bạn, tính theo ngày sinh — cùng vài năm trước/sau để bạn thấy nhịp chu kỳ.</p>
+
+        <div class="cards-grid">
+          <div class="card hero-card" id="cycles-year-card"></div>
+          <div class="card" id="cycles-month-card"></div>
+        </div>
+
+        <div class="timeline-wrap">
+          <div class="timeline" id="cycles-timeline"></div>
+          <div class="timeline-detail" id="cycles-timeline-detail" hidden></div>
+        </div>
+
+        <div class="calendar-wrap">
+          <div class="calendar-head" id="calendar-head"></div>
+          <div class="calendar-grid" id="calendar-grid"></div>
+          <div class="calendar-detail" id="calendar-detail" hidden></div>
+        </div>
+      </div>
+
+      <div id="panel-people" role="tabpanel" hidden>
+        <div class="people-header">
+          <h2>Mọi người</h2>
+          <button class="btn-secondary" type="button" id="add-person-toggle">+ Thêm người</button>
+        </div>
+        <p class="storage-note">Danh sách này chỉ lưu trên thiết bị/trình duyệt này của bạn, không đăng nhập, không đồng bộ sang máy khác.</p>
+
+        <form class="add-person-form" id="add-person-form" hidden>
+          <div class="field-row">
+            <div class="field">
+              <label for="person-name">Tên</label>
+              <input type="text" id="person-name" placeholder="Nguyễn Văn An" required>
+            </div>
+            <div class="field">
+              <label for="person-dob">Ngày sinh</label>
+              <input type="date" id="person-dob" required>
+            </div>
+            <div class="field">
+              <label for="person-relationship">Mối quan hệ (không bắt buộc)</label>
+              <input type="text" id="person-relationship" placeholder="VD: Tôi, người yêu, bạn thân">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="cta" type="submit">Tạo hồ sơ</button>
+            <button class="btn-text" type="button" id="add-person-cancel">Hủy</button>
+          </div>
+        </form>
+
+        <div id="people-empty" class="people-empty" hidden>
+          Bạn chưa thêm ai.<br>Thêm người thân hoặc bạn bè để khám phá bản đồ của họ.
+          <br>
+          <button class="btn-secondary" type="button" id="people-empty-add">+ Thêm người</button>
+        </div>
+
+        <div id="people-grid" class="people-grid"></div>
+
+        <div id="compare-wrap" class="compare-wrap" hidden>
+          <h2>So sánh hai người</h2>
+          <div class="compare-picker">
+            <div class="field">
+              <label for="compare-select-a">Người 1</label>
+              <select id="compare-select-a"></select>
+            </div>
+            <div class="field">
+              <label for="compare-select-b">Người 2</label>
+              <select id="compare-select-b"></select>
+            </div>
+          </div>
+          <div id="compare-table" class="compare-table"></div>
+        </div>
+      </div>
+
+      <p class="disclaimer">
+        Kết quả mang tính chiêm nghiệm, tự nhận thức bản thân theo hệ thần số học Pythagorean — không phải khẳng định khoa học hay lời khuyên y tế, tài chính, pháp lý. Hãy xem đây là một góc nhìn gợi mở, không phải kết luận tuyệt đối về con người bạn.
+      </p>
+      <footer class="site">Thần Số Học · Engine v1.0</footer>
+    </main>
+  </div>
+
+  <script src="engine.bundle.js"></script>
+  <script>
+    (function () {
+      const engine = window.NumerologyEngine;
+
+      const form = document.getElementById("numerology-form");
+      const fullNameInput = document.getElementById("fullName");
+      const dobInput = document.getElementById("dateOfBirth");
+      const errorBox = document.getElementById("error-box");
+      const resultsSection = document.getElementById("results-section");
+      const resultName = document.getElementById("result-name");
+      const exampleTag = document.getElementById("example-tag");
+      const resultsNote = document.getElementById("results-note");
+      const cardsGrid = document.getElementById("cards-grid");
+
+      const tabButtons = document.querySelectorAll(".tab-btn");
+      const panelHome = document.getElementById("panel-home");
+      const panelExplore = document.getElementById("panel-explore");
+      const panelMap = document.getElementById("panel-map");
+      const panelCycles = document.getElementById("panel-cycles");
+      const exploreSearchInput = document.getElementById("explore-search-input");
+      const exploreBasicLabel = document.getElementById("explore-basic-label");
+      const exploreBasicGrid = document.getElementById("explore-basic-grid");
+      const exploreMasterLabel = document.getElementById("explore-master-label");
+      const exploreMasterGrid = document.getElementById("explore-master-grid");
+      const exploreDetail = document.getElementById("explore-detail");
+
+      const panelPeople = document.getElementById("panel-people");
+      const addPersonToggle = document.getElementById("add-person-toggle");
+      const addPersonForm = document.getElementById("add-person-form");
+      const addPersonCancel = document.getElementById("add-person-cancel");
+      const personNameInput = document.getElementById("person-name");
+      const personDobInput = document.getElementById("person-dob");
+      const personRelationshipInput = document.getElementById("person-relationship");
+      const peopleEmpty = document.getElementById("people-empty");
+      const peopleEmptyAdd = document.getElementById("people-empty-add");
+      const peopleGrid = document.getElementById("people-grid");
+      const compareWrap = document.getElementById("compare-wrap");
+      const compareSelectA = document.getElementById("compare-select-a");
+      const compareSelectB = document.getElementById("compare-select-b");
+      const compareTable = document.getElementById("compare-table");
+      const homeGreetingText = document.getElementById("home-greeting-text");
+      const homeDate = document.getElementById("home-date");
+      const homeDayCard = document.getElementById("home-day-card");
+      const homeMonthCard = document.getElementById("home-month-card");
+      const homeYearCard = document.getElementById("home-year-card");
+      const cyclesName = document.getElementById("cycles-name");
+      const cyclesYearCard = document.getElementById("cycles-year-card");
+      const cyclesMonthCard = document.getElementById("cycles-month-card");
+      const cyclesTimeline = document.getElementById("cycles-timeline");
+      const cyclesTimelineDetail = document.getElementById("cycles-timeline-detail");
+      const calendarHead = document.getElementById("calendar-head");
+      const calendarGrid = document.getElementById("calendar-grid");
+      const calendarDetail = document.getElementById("calendar-detail");
+
+      let currentInput = null; // { fullName, dateOfBirth } của lần tính gần nhất, dùng cho tab Chu kỳ
+
+      function todayIso() {
+        const d = new Date();
+        const y = d.getFullYear();
+        const m = String(d.getMonth() + 1).padStart(2, "0");
+        const day = String(d.getDate()).padStart(2, "0");
+        return `${y}-${m}-${day}`;
+      }
+
+      const ERROR_MESSAGES = {
+        INVALID_DATE: "Ngày sinh không hợp lệ. Vui lòng kiểm tra lại ngày/tháng/năm.",
+        FUTURE_BIRTH_DATE: "Ngày sinh không thể ở tương lai.",
+        DATE_OUT_OF_RANGE: "Năm sinh cần trong khoảng từ 1900 đến năm hiện tại.",
+        INVALID_NAME: "Vui lòng nhập họ tên có ít nhất một chữ cái.",
+      };
+
+      function friendlyError(err) {
+        if (err instanceof engine.NumerologyError) {
+          return ERROR_MESSAGES[err.code] || "Thông tin chưa hợp lệ, vui lòng kiểm tra lại.";
+        }
+        return "Có lỗi xảy ra khi tính toán, vui lòng thử lại.";
+      }
+
+      function isMaster(n) {
+        return n === 11 || n === 22 || n === 33;
+      }
+
+      function pad2(n) {
+        return String(n).padStart(2, "0");
+      }
+      function ymd(y, m, d) {
+        return `${y}-${pad2(m)}-${pad2(d)}`;
+      }
+      function numColorClass(n) {
+        return isMaster(n) ? "num-cm" : "num-c" + n;
+      }
+
+      function renderLifePathDetailBlock(number) {
+        const detail = engine.getLifePathDetail(number);
+        if (!detail) return null;
+
+        const details = document.createElement("details");
+        details.className = "life-path-detail-toggle";
+        const summary = document.createElement("summary");
+        summary.textContent = "Xem chi tiết 7 phần";
+        details.appendChild(summary);
+
+        const wrap = document.createElement("div");
+        wrap.className = "explore-sections life-path-detail-sections";
+        [
+          ["Tổng quan", detail.overview],
+          ["Điểm mạnh", detail.strengths],
+          ["Thách thức", detail.challenges],
+          ["Công việc", detail.career],
+          ["Mối quan hệ", detail.relationships],
+          ["Giao tiếp", detail.communication],
+          ["Phát triển bản thân", detail.growth],
+        ].forEach(([label, text]) => {
+          const sec = document.createElement("div");
+          sec.className = "explore-section";
+          const eyebrow = document.createElement("div");
+          eyebrow.className = "eyebrow";
+          eyebrow.textContent = label;
+          const p = document.createElement("p");
+          p.className = "meaning";
+          p.textContent = text;
+          sec.appendChild(eyebrow);
+          sec.appendChild(p);
+          wrap.appendChild(sec);
+        });
+        details.appendChild(wrap);
+        return details;
+      }
+
+      function renderCard({ eyebrow, sub, result, interpretation, hero, showLifePathDetail }) {
+        const number = result.number;
+        const master = typeof number === "number" && isMaster(number);
+        const card = document.createElement("div");
+        card.className = "card" + (hero ? " hero-card" : "") + (master ? " master" : "");
+
+        const eyebrowEl = document.createElement("div");
+        eyebrowEl.className = "eyebrow";
+        eyebrowEl.textContent = eyebrow + (sub ? ` · ${sub}` : "");
+        if (master) {
+          const badge = document.createElement("span");
+          badge.className = "master-badge";
+          badge.textContent = "MASTER";
+          eyebrowEl.appendChild(badge);
+        }
+        card.appendChild(eyebrowEl);
+
+        const numberEl = document.createElement("div");
+        numberEl.className = "number";
+        if (number === null) {
+          numberEl.textContent = "—";
+        } else {
+          numberEl.textContent = String(number);
+          if (!master) {
+            numberEl.classList.add("num-c" + number);
+          }
+        }
+        card.appendChild(numberEl);
+
+        const meaningEl = document.createElement("p");
+        meaningEl.className = "meaning";
+        meaningEl.textContent = interpretation;
+        card.appendChild(meaningEl);
+
+        if (showLifePathDetail && number !== null) {
+          const detailBlock = renderLifePathDetailBlock(number);
+          if (detailBlock) card.appendChild(detailBlock);
+        }
+
+        if (result.calculationSteps && result.calculationSteps.length) {
+          const details = document.createElement("details");
+          const summary = document.createElement("summary");
+          summary.textContent = "Xem cách tính";
+          details.appendChild(summary);
+          const steps = document.createElement("div");
+          steps.className = "steps";
+          steps.textContent = result.calculationSteps.join("\n");
+          details.appendChild(steps);
+          card.appendChild(details);
+        }
+
+        return card;
+      }
+
+      function renderSimpleNumberCard(cardEl, { eyebrow, number, interpretation, hero }) {
+        const master = typeof number === "number" && isMaster(number);
+        cardEl.className = "card" + (hero ? " hero-card" : "") + (master ? " master" : "");
+        cardEl.innerHTML = "";
+
+        const eyebrowEl = document.createElement("div");
+        eyebrowEl.className = "eyebrow";
+        eyebrowEl.textContent = eyebrow;
+        if (master) {
+          const badge = document.createElement("span");
+          badge.className = "master-badge";
+          badge.textContent = "MASTER";
+          eyebrowEl.appendChild(badge);
+        }
+        cardEl.appendChild(eyebrowEl);
+
+        const numberEl = document.createElement("div");
+        numberEl.className = "number";
+        numberEl.textContent = String(number);
+        if (!master) numberEl.classList.add(numColorClass(number));
+        cardEl.appendChild(numberEl);
+
+        const meaningEl = document.createElement("p");
+        meaningEl.className = "meaning";
+        meaningEl.textContent = interpretation;
+        cardEl.appendChild(meaningEl);
+      }
+
+      function showTimelineDetail(year, personalYearResult) {
+        cyclesTimelineDetail.hidden = false;
+        cyclesTimelineDetail.innerHTML = "";
+        const head = document.createElement("div");
+        head.className = "timeline-detail-head";
+        head.textContent = `Năm cá nhân ${year}: ${personalYearResult.number}`;
+        const p = document.createElement("p");
+        p.className = "meaning";
+        p.textContent = engine.interpretPersonalYear(personalYearResult.number);
+        cyclesTimelineDetail.appendChild(head);
+        cyclesTimelineDetail.appendChild(p);
+      }
+
+      function showCalendarDetail(dateStr, personalDayResult) {
+        calendarDetail.hidden = false;
+        calendarDetail.innerHTML = "";
+        const [y, m, d] = dateStr.split("-");
+        const head = document.createElement("div");
+        head.className = "calendar-detail-head";
+        head.textContent = `Ngày cá nhân ${d}/${m}/${y}: ${personalDayResult.number}`;
+        const p = document.createElement("p");
+        p.className = "meaning";
+        p.textContent = engine.interpretPersonalDay(personalDayResult.number);
+        calendarDetail.appendChild(head);
+        calendarDetail.appendChild(p);
+      }
+
+      function renderCalendar(dateOfBirth, year, month, todayDay) {
+        const WEEKDAY_LABELS = ["T2", "T3", "T4", "T5", "T6", "T7", "CN"];
+        calendarHead.innerHTML = WEEKDAY_LABELS.map((l) => `<span>${l}</span>`).join("");
+
+        calendarGrid.innerHTML = "";
+        const daysInMonth = new Date(year, month, 0).getDate();
+        const firstJsDay = new Date(year, month - 1, 1).getDay(); // 0=CN
+        const leading = (firstJsDay + 6) % 7; // 0=T2
+
+        for (let i = 0; i < leading; i++) {
+          const blank = document.createElement("div");
+          blank.className = "cal-cell empty";
+          calendarGrid.appendChild(blank);
+        }
+
+        for (let d = 1; d <= daysInMonth; d++) {
+          const dateStr = ymd(year, month, d);
+          const pd = engine.calculatePersonalDay(dateOfBirth, dateStr);
+          const cell = document.createElement("button");
+          cell.type = "button";
+          cell.className = "cal-cell" + (d === todayDay ? " today" : "");
+          cell.innerHTML =
+            `<span class="cal-date">${d}</span>` +
+            `<span class="cal-pd ${numColorClass(pd.number)}">${pd.number}</span>`;
+          cell.addEventListener("click", () => showCalendarDetail(dateStr, pd));
+          calendarGrid.appendChild(cell);
+        }
+      }
+
+      function renderCycles() {
+        if (!currentInput) return;
+        const { fullName, dateOfBirth } = currentInput;
+        cyclesName.textContent = fullName;
+
+        const todayStr = todayIso();
+        const currentYear = Number(todayStr.slice(0, 4));
+        const currentMonth = Number(todayStr.slice(5, 7));
+        const currentDay = Number(todayStr.slice(8, 10));
+
+        const py = engine.calculatePersonalYear(dateOfBirth, currentYear);
+        renderSimpleNumberCard(cyclesYearCard, {
+          eyebrow: `Năm cá nhân · ${currentYear}`,
+          number: py.number,
+          interpretation: engine.interpretPersonalYear(py.number),
+          hero: true,
+        });
+
+        const pm = engine.calculatePersonalMonth(dateOfBirth, currentYear, currentMonth);
+        renderSimpleNumberCard(cyclesMonthCard, {
+          eyebrow: `Tháng cá nhân · Tháng ${currentMonth}/${currentYear}`,
+          number: pm.number,
+          interpretation: engine.interpretPersonalMonth(pm.number),
+          hero: false,
+        });
+
+        cyclesTimeline.innerHTML = "";
+        cyclesTimelineDetail.hidden = true;
+        for (let y = currentYear - 2; y <= currentYear + 4; y++) {
+          const yearPy = engine.calculatePersonalYear(dateOfBirth, y);
+          const pill = document.createElement("button");
+          pill.type = "button";
+          pill.className = "year-pill" + (y === currentYear ? " current" : "");
+          pill.innerHTML =
+            `<span class="year-pill-year">${y === currentYear ? "Hiện tại" : y}</span>` +
+            `<span class="year-pill-num ${numColorClass(yearPy.number)}">${yearPy.number}</span>`;
+          pill.addEventListener("click", () => showTimelineDetail(y, yearPy));
+          cyclesTimeline.appendChild(pill);
+        }
+
+        calendarDetail.hidden = true;
+        renderCalendar(dateOfBirth, currentYear, currentMonth, currentDay);
+      }
+
+      const WEEKDAY_NAMES = ["Chủ Nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy"];
+
+      function givenName(fullName) {
+        const parts = fullName.trim().split(/\s+/);
+        return parts[parts.length - 1] || fullName;
+      }
+
+      function renderHome() {
+        if (!currentInput) return;
+        const { fullName, dateOfBirth } = currentInput;
+
+        const now = new Date();
+        homeGreetingText.textContent = `Xin chào, ${givenName(fullName)} 👋`;
+        homeDate.textContent = `${WEEKDAY_NAMES[now.getDay()]}, ${now.getDate()} tháng ${now.getMonth() + 1}`;
+
+        const todayStr = todayIso();
+        const currentYear = Number(todayStr.slice(0, 4));
+        const currentMonth = Number(todayStr.slice(5, 7));
+
+        const pd = engine.calculatePersonalDay(dateOfBirth, todayStr);
+        renderSimpleNumberCard(homeDayCard, {
+          eyebrow: "Ngày cá nhân · hôm nay",
+          number: pd.number,
+          interpretation: engine.interpretPersonalDay(pd.number),
+          hero: true,
+        });
+
+        const pm = engine.calculatePersonalMonth(dateOfBirth, currentYear, currentMonth);
+        renderSimpleNumberCard(homeMonthCard, {
+          eyebrow: "Tháng cá nhân",
+          number: pm.number,
+          interpretation: engine.interpretPersonalMonth(pm.number),
+          hero: false,
+        });
+
+        const py = engine.calculatePersonalYear(dateOfBirth, currentYear);
+        renderSimpleNumberCard(homeYearCard, {
+          eyebrow: "Năm cá nhân",
+          number: py.number,
+          interpretation: engine.interpretPersonalYear(py.number),
+          hero: false,
+        });
+      }
+
+      const BASIC_NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      const MASTER_NUMBERS_LIST = [11, 22, 33];
+      let selectedExploreNumber = 1;
+
+      function makeNumberTile(n) {
+        const tile = document.createElement("button");
+        tile.type = "button";
+        tile.className = "number-tile" + (n === selectedExploreNumber ? " selected" : "");
+        const colorClass = numColorClass(n);
+        tile.innerHTML =
+          `<span class="${colorClass}">${n}</span>` +
+          (isMaster(n) ? `<span class="tile-badge">Master</span>` : "");
+        tile.addEventListener("click", () => {
+          selectedExploreNumber = n;
+          renderExploreGrid(exploreSearchInput.value);
+          renderExploreDetail(n);
+        });
+        return tile;
+      }
+
+      function renderExploreGrid(filterText) {
+        const q = (filterText || "").trim();
+        const basic = BASIC_NUMBERS.filter((n) => !q || String(n).includes(q));
+        const master = MASTER_NUMBERS_LIST.filter((n) => !q || String(n).includes(q));
+
+        exploreBasicGrid.innerHTML = "";
+        basic.forEach((n) => exploreBasicGrid.appendChild(makeNumberTile(n)));
+        exploreBasicLabel.hidden = basic.length === 0;
+        exploreBasicGrid.hidden = basic.length === 0;
+
+        exploreMasterGrid.innerHTML = "";
+        master.forEach((n) => exploreMasterGrid.appendChild(makeNumberTile(n)));
+        exploreMasterLabel.hidden = master.length === 0;
+        exploreMasterGrid.hidden = master.length === 0;
+      }
+
+      function renderExploreDetail(n) {
+        exploreDetail.innerHTML = "";
+
+        const head = document.createElement("div");
+        head.className = "number-detail-head";
+        head.innerHTML =
+          `<span class="big-number ${numColorClass(n)}">${n}</span>` +
+          `<h3>${isMaster(n) ? "Master Number " + n : "Số " + n}</h3>`;
+        exploreDetail.appendChild(head);
+
+        const sections = document.createElement("div");
+        sections.className = "explore-sections";
+        const items = [
+          ["Đường đời · Life Path", engine.interpretLifePath(n)],
+          ["Biểu đạt · Expression", engine.interpretExpression(n)],
+          ["Linh hồn · Soul Urge", engine.interpretSoulUrge(n)],
+          ["Nhân cách · Personality", engine.interpretPersonality(n)],
+          ["Ngày sinh · Birthday Number", engine.interpretBirthday(n)],
+          ["Năm cá nhân · Personal Year", engine.interpretPersonalYear(n)],
+        ];
+        items.forEach(([label, text]) => {
+          const sec = document.createElement("div");
+          sec.className = "explore-section";
+          const eyebrow = document.createElement("div");
+          eyebrow.className = "eyebrow";
+          eyebrow.textContent = label;
+          const p = document.createElement("p");
+          p.className = "meaning";
+          p.textContent = text;
+          sec.appendChild(eyebrow);
+          sec.appendChild(p);
+          if (label.startsWith("Đường đời")) {
+            const detailBlock = renderLifePathDetailBlock(n);
+            if (detailBlock) sec.appendChild(detailBlock);
+          }
+          sections.appendChild(sec);
+        });
+        exploreDetail.appendChild(sections);
+      }
+
+      exploreSearchInput.addEventListener("input", () => {
+        renderExploreGrid(exploreSearchInput.value);
+      });
+
+      // Khám phá không cần tên/ngày sinh — hiển thị sẵn số 1 để trang không trống khi mở tab.
+      renderExploreGrid("");
+      renderExploreDetail(selectedExploreNumber);
+
+      // ---- Mọi người: lưu cục bộ trong trình duyệt (không tài khoản, không đồng bộ máy khác) ----
+      const PEOPLE_STORAGE_KEY = "thanSoHoc.people.v1";
+      let expandedPersonId = null;
+
+      function loadPeople() {
+        try {
+          const raw = window.localStorage.getItem(PEOPLE_STORAGE_KEY);
+          const list = raw ? JSON.parse(raw) : [];
+          return Array.isArray(list) ? list : [];
+        } catch (err) {
+          console.error("Không đọc được danh sách Mọi người từ localStorage:", err);
+          return [];
+        }
+      }
+
+      function savePeople(list) {
+        try {
+          window.localStorage.setItem(PEOPLE_STORAGE_KEY, JSON.stringify(list));
+        } catch (err) {
+          console.error("Không lưu được danh sách Mọi người vào localStorage:", err);
+        }
+      }
+
+      function initials(name) {
+        const parts = name.trim().split(/\s+/).filter(Boolean);
+        if (parts.length === 0) return "?";
+        if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+        return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+      }
+
+      function personCurrentYear() {
+        return Number(todayIso().slice(0, 4));
+      }
+
+      function renderPeople() {
+        const people = loadPeople();
+        peopleEmpty.hidden = people.length !== 0;
+        peopleGrid.hidden = people.length === 0;
+        peopleGrid.innerHTML = "";
+
+        people.forEach((person) => {
+          let lifePath, personalYear;
+          try {
+            lifePath = engine.calculateNumerologyProfile({
+              fullName: person.name,
+              dateOfBirth: person.dateOfBirth,
+              referenceDate: todayIso(),
+            }).lifePath;
+            personalYear = engine.calculatePersonalYear(person.dateOfBirth, personCurrentYear());
+          } catch (err) {
+            console.error("Hồ sơ không hợp lệ, bỏ qua:", person, err);
+            return;
+          }
+
+          const card = document.createElement("div");
+          card.className = "person-card";
+
+          const top = document.createElement("div");
+          top.className = "person-top";
+          top.innerHTML =
+            `<span class="avatar">${initials(person.name)}</span>` +
+            `<div><div class="person-name">${person.name}</div>` +
+            (person.relationship ? `<div class="person-relationship">${person.relationship}</div>` : "") +
+            `</div>`;
+          card.appendChild(top);
+
+          const chips = document.createElement("div");
+          chips.className = "person-chips";
+          chips.innerHTML =
+            `<div class="person-chip"><div class="chip-label">Đường đời</div><div class="chip-num ${numColorClass(lifePath.number)}">${lifePath.number}</div></div>` +
+            `<div class="person-chip"><div class="chip-label">Năm cá nhân</div><div class="chip-num ${numColorClass(personalYear.number)}">${personalYear.number}</div></div>`;
+          card.appendChild(chips);
+
+          const actions = document.createElement("div");
+          actions.className = "person-actions";
+          const viewBtn = document.createElement("button");
+          viewBtn.type = "button";
+          viewBtn.className = "btn-text";
+          viewBtn.textContent = expandedPersonId === person.id ? "Ẩn hồ sơ" : "Xem hồ sơ";
+          viewBtn.addEventListener("click", () => {
+            expandedPersonId = expandedPersonId === person.id ? null : person.id;
+            renderPeople();
+          });
+          const deleteBtn = document.createElement("button");
+          deleteBtn.type = "button";
+          deleteBtn.className = "btn-text";
+          deleteBtn.textContent = "Xóa";
+          deleteBtn.addEventListener("click", () => {
+            if (window.confirm(`Xóa hồ sơ của ${person.name}?`)) {
+              savePeople(loadPeople().filter((p) => p.id !== person.id));
+              if (expandedPersonId === person.id) expandedPersonId = null;
+              renderPeople();
+              renderComparePickers();
+            }
+          });
+          actions.appendChild(viewBtn);
+          actions.appendChild(deleteBtn);
+          card.appendChild(actions);
+
+          if (expandedPersonId === person.id) {
+            const full = engine.calculateNumerologyProfile({
+              fullName: person.name,
+              dateOfBirth: person.dateOfBirth,
+              referenceDate: todayIso(),
+            });
+            const detail = document.createElement("div");
+            detail.className = "person-full-detail";
+            [
+              ["Đường đời", full.lifePath.number, engine.interpretLifePath(full.lifePath.number)],
+              ["Biểu đạt", full.expression.number, engine.interpretExpression(full.expression.number)],
+              ["Linh hồn", full.soulUrge.number, engine.interpretSoulUrge(full.soulUrge.number)],
+              ["Nhân cách", full.personality.number, engine.interpretPersonality(full.personality.number)],
+              ["Ngày sinh", full.birthday.number, engine.interpretBirthday(full.birthday.number)],
+              ["Năm cá nhân", personalYear.number, engine.interpretPersonalYear(personalYear.number)],
+            ].forEach(([label, num, text]) => {
+              const sec = document.createElement("div");
+              sec.className = "explore-section";
+              const eyebrow = document.createElement("div");
+              eyebrow.className = "eyebrow";
+              eyebrow.textContent = `${label} · ${num === null ? "—" : num}`;
+              const p = document.createElement("p");
+              p.className = "meaning";
+              p.textContent = text;
+              sec.appendChild(eyebrow);
+              sec.appendChild(p);
+              if (label === "Đường đời" && num !== null) {
+                const detailBlock = renderLifePathDetailBlock(num);
+                if (detailBlock) sec.appendChild(detailBlock);
+              }
+              detail.appendChild(sec);
+            });
+            card.appendChild(detail);
+          }
+
+          peopleGrid.appendChild(card);
+        });
+      }
+
+      function renderComparePickers() {
+        const people = loadPeople();
+        compareWrap.hidden = people.length < 2;
+        if (people.length < 2) return;
+
+        const prevA = compareSelectA.value;
+        const prevB = compareSelectB.value;
+        const optionsHtml = people.map((p) => `<option value="${p.id}">${p.name}</option>`).join("");
+        compareSelectA.innerHTML = optionsHtml;
+        compareSelectB.innerHTML = optionsHtml;
+
+        if (people.some((p) => p.id === prevA)) compareSelectA.value = prevA;
+        if (people.some((p) => p.id === prevB)) compareSelectB.value = prevB;
+        if (compareSelectA.value === compareSelectB.value && people.length > 1) {
+          compareSelectB.value = people.find((p) => p.id !== compareSelectA.value).id;
+        }
+        renderCompareTable();
+      }
+
+      function renderCompareTable() {
+        const people = loadPeople();
+        const personA = people.find((p) => p.id === compareSelectA.value);
+        const personB = people.find((p) => p.id === compareSelectB.value);
+        compareTable.innerHTML = "";
+        if (!personA || !personB) return;
+
+        let profileA, profileB, yearA, yearB;
+        try {
+          profileA = engine.calculateNumerologyProfile({ fullName: personA.name, dateOfBirth: personA.dateOfBirth, referenceDate: todayIso() });
+          profileB = engine.calculateNumerologyProfile({ fullName: personB.name, dateOfBirth: personB.dateOfBirth, referenceDate: todayIso() });
+          yearA = engine.calculatePersonalYear(personA.dateOfBirth, personCurrentYear());
+          yearB = engine.calculatePersonalYear(personB.dateOfBirth, personCurrentYear());
+        } catch (err) {
+          compareTable.textContent = "Không thể so sánh — hồ sơ có dữ liệu không hợp lệ.";
+          return;
+        }
+
+        const rows = [
+          ["Đường đời", profileA.lifePath.number, profileB.lifePath.number],
+          ["Biểu đạt", profileA.expression.number, profileB.expression.number],
+          ["Linh hồn", profileA.soulUrge.number, profileB.soulUrge.number],
+          ["Nhân cách", profileA.personality.number, profileB.personality.number],
+          ["Ngày sinh", profileA.birthday.number, profileB.birthday.number],
+          ["Năm cá nhân", yearA.number, yearB.number],
+        ];
+
+        rows.forEach(([label, numA, numB]) => {
+          const row = document.createElement("div");
+          row.className = "compare-row";
+          const eyebrow = document.createElement("div");
+          eyebrow.className = "eyebrow";
+          eyebrow.textContent = label;
+          row.appendChild(eyebrow);
+          const pair = document.createElement("div");
+          pair.className = "compare-pair";
+          pair.innerHTML =
+            `<div class="compare-side"><div class="compare-person-name">${personA.name}</div>` +
+            `<div class="compare-num ${numA === null ? "" : numColorClass(numA)}">${numA === null ? "—" : numA}</div></div>` +
+            `<div class="compare-side"><div class="compare-person-name">${personB.name}</div>` +
+            `<div class="compare-num ${numB === null ? "" : numColorClass(numB)}">${numB === null ? "—" : numB}</div></div>`;
+          row.appendChild(pair);
+          compareTable.appendChild(row);
+        });
+
+        // Điểm tương đồng / khác biệt — theo nhóm tính khí của Đường đời (xem so-sanh-nhom-tinh-khi-v1.md)
+        const lifePathA = profileA.lifePath.number;
+        const lifePathB = profileB.lifePath.number;
+        const groupCompare = engine.compareLifePathNumbers(lifePathA, lifePathB);
+        const groupLabelA = engine.LIFE_PATH_GROUP_LABELS[groupCompare.groupA].name;
+        const groupLabelB = engine.LIFE_PATH_GROUP_LABELS[groupCompare.groupB].name;
+
+        const groupNote = document.createElement("p");
+        groupNote.className = "compare-group-note";
+        groupNote.textContent =
+          groupCompare.groupA === groupCompare.groupB
+            ? `Cả hai đều thuộc nhóm tính khí "${groupLabelA}" (theo Đường đời).`
+            : `${personA.name} thuộc nhóm "${groupLabelA}", ${personB.name} thuộc nhóm "${groupLabelB}" (theo Đường đời).`;
+        compareTable.appendChild(groupNote);
+
+        [
+          ["Điểm tương đồng", groupCompare.similarities],
+          ["Điểm khác biệt", groupCompare.differences],
+        ].forEach(([label, text]) => {
+          const box = document.createElement("div");
+          box.className = "compare-insight";
+          const eyebrow = document.createElement("div");
+          eyebrow.className = "eyebrow";
+          eyebrow.textContent = label;
+          const p = document.createElement("p");
+          p.className = "meaning";
+          p.textContent = text;
+          box.appendChild(eyebrow);
+          box.appendChild(p);
+          compareTable.appendChild(box);
+        });
+
+        // Cách giao tiếp / Điều nên hiểu về nhau — dùng lại nội dung Detail Page của từng người,
+        // không cần soạn riêng cho từng cặp số.
+        const detailA = engine.getLifePathDetail(lifePathA);
+        const detailB = engine.getLifePathDetail(lifePathB);
+
+        [
+          ["Cách giao tiếp", detailA.communication, detailB.communication],
+          ["Điều nên hiểu về nhau", detailA.growth, detailB.growth],
+        ].forEach(([label, textA, textB]) => {
+          const row = document.createElement("div");
+          row.className = "compare-row";
+          const eyebrow = document.createElement("div");
+          eyebrow.className = "eyebrow";
+          eyebrow.textContent = label;
+          row.appendChild(eyebrow);
+          const pair = document.createElement("div");
+          pair.className = "compare-pair";
+          pair.innerHTML =
+            `<div class="compare-side"><div class="compare-person-name">${personA.name}</div>` +
+            `<div class="compare-text">${textA}</div></div>` +
+            `<div class="compare-side"><div class="compare-person-name">${personB.name}</div>` +
+            `<div class="compare-text">${textB}</div></div>`;
+          row.appendChild(pair);
+          compareTable.appendChild(row);
+        });
+      }
+
+      function showAddPersonForm() {
+        addPersonForm.hidden = false;
+        personNameInput.focus();
+      }
+      function hideAddPersonForm() {
+        addPersonForm.hidden = true;
+        addPersonForm.reset();
+      }
+
+      addPersonToggle.addEventListener("click", () => {
+        addPersonForm.hidden ? showAddPersonForm() : hideAddPersonForm();
+      });
+      peopleEmptyAdd.addEventListener("click", showAddPersonForm);
+      addPersonCancel.addEventListener("click", hideAddPersonForm);
+
+      addPersonForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const name = personNameInput.value.trim();
+        const dateOfBirth = personDobInput.value;
+        const relationship = personRelationshipInput.value.trim();
+
+        try {
+          engine.calculateNumerologyProfile({ fullName: name, dateOfBirth, referenceDate: todayIso() });
+        } catch (err) {
+          window.alert(friendlyError(err));
+          return;
+        }
+
+        const people = loadPeople();
+        people.push({
+          id: "p" + Date.now() + Math.random().toString(36).slice(2, 7),
+          name,
+          dateOfBirth,
+          relationship,
+        });
+        savePeople(people);
+        hideAddPersonForm();
+        renderPeople();
+        renderComparePickers();
+      });
+
+      compareSelectA.addEventListener("change", renderCompareTable);
+      compareSelectB.addEventListener("change", renderCompareTable);
+
+      renderPeople();
+      renderComparePickers();
+
+      function switchTab(tab) {
+        tabButtons.forEach((btn) => {
+          const active = btn.dataset.tab === tab;
+          btn.classList.toggle("active", active);
+          btn.setAttribute("aria-selected", String(active));
+        });
+        panelHome.hidden = tab !== "home";
+        panelExplore.hidden = tab !== "explore";
+        panelMap.hidden = tab !== "map";
+        panelCycles.hidden = tab !== "cycles";
+        panelPeople.hidden = tab !== "people";
+      }
+
+      tabButtons.forEach((btn) => {
+        btn.addEventListener("click", () => switchTab(btn.dataset.tab));
+      });
+
+      function calculateAndRender(fullName, dateOfBirth, isExample) {
+        errorBox.hidden = true;
+
+        const referenceDate = todayIso();
+        const profile = engine.calculateNumerologyProfile({ fullName, dateOfBirth, referenceDate });
+
+        const year = Number(referenceDate.slice(0, 4));
+        const month = Number(referenceDate.slice(5, 7));
+        const personalYear = engine.calculatePersonalYear(dateOfBirth, year);
+        const personalMonth = engine.calculatePersonalMonth(dateOfBirth, year, month);
+        const personalDay = engine.calculatePersonalDay(dateOfBirth, referenceDate);
+
+        resultName.textContent = fullName;
+        exampleTag.hidden = !isExample;
+        resultsNote.textContent = isExample
+          ? "Đây là ví dụ minh hoạ. Nhập tên và ngày sinh của bạn ở trên để xem kết quả riêng."
+          : "";
+
+        cardsGrid.innerHTML = "";
+        cardsGrid.appendChild(renderCard({
+          eyebrow: "Đường đời", sub: "Life Path", hero: true, showLifePathDetail: true,
+          result: profile.lifePath, interpretation: engine.interpretLifePath(profile.lifePath.number),
+        }));
+        cardsGrid.appendChild(renderCard({
+          eyebrow: "Ngày cá nhân hôm nay", sub: "Personal Day", hero: true,
+          result: personalDay, interpretation: engine.interpretPersonalDay(personalDay.number),
+        }));
+        cardsGrid.appendChild(renderCard({
+          eyebrow: "Ngày sinh", sub: "Birthday Number",
+          result: profile.birthday, interpretation: engine.interpretBirthday(profile.birthday.number),
+        }));
+        cardsGrid.appendChild(renderCard({
+          eyebrow: "Biểu đạt", sub: "Expression",
+          result: profile.expression, interpretation: engine.interpretExpression(profile.expression.number),
+        }));
+        cardsGrid.appendChild(renderCard({
+          eyebrow: "Linh hồn", sub: "Soul Urge",
+          result: profile.soulUrge, interpretation: engine.interpretSoulUrge(profile.soulUrge.number),
+        }));
+        cardsGrid.appendChild(renderCard({
+          eyebrow: "Nhân cách", sub: "Personality",
+          result: profile.personality, interpretation: engine.interpretPersonality(profile.personality.number),
+        }));
+        cardsGrid.appendChild(renderCard({
+          eyebrow: "Tháng cá nhân", sub: `Tháng ${month}/${year}`,
+          result: personalMonth, interpretation: engine.interpretPersonalMonth(personalMonth.number),
+        }));
+        cardsGrid.appendChild(renderCard({
+          eyebrow: "Năm cá nhân", sub: String(year),
+          result: personalYear, interpretation: engine.interpretPersonalYear(personalYear.number),
+        }));
+
+        resultsSection.hidden = false;
+
+        // Chỉ cập nhật currentInput sau khi tính toán thành công, để tab Chu kỳ
+        // không bao giờ dùng dữ liệu đã gây lỗi ở tab Bản đồ.
+        currentInput = { fullName, dateOfBirth };
+        renderHome();
+        renderCycles();
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        try {
+          calculateAndRender(fullNameInput.value.trim(), dobInput.value, false);
+          resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+        } catch (err) {
+          errorBox.textContent = friendlyError(err);
+          errorBox.hidden = false;
+          resultsSection.hidden = true;
+        }
+      });
+
+      // Show the page in a realistic working state on load, clearly marked as an example.
+      const EXAMPLE_NAME = "Nguyễn Văn An";
+      const EXAMPLE_DOB = "1995-08-17";
+      fullNameInput.value = EXAMPLE_NAME;
+      dobInput.value = EXAMPLE_DOB;
+      try {
+        calculateAndRender(EXAMPLE_NAME, EXAMPLE_DOB, true);
+      } catch (err) {
+        // Should never happen with the fixed example, but fail quietly rather than block the page.
+        console.error(err);
+      }
+    })();
+  </script>
+</body>
+</html>
