@@ -1675,15 +1675,15 @@
         }
       });
 
-      // Show the page in a realistic working state on load, clearly marked as an example.
-      const EXAMPLE_NAME = "Nguyễn Văn An";
-      const EXAMPLE_DOB = "1995-08-17";
-      fullNameInput.value = EXAMPLE_NAME;
-      dobInput.value = EXAMPLE_DOB;
+      // Show the page in a realistic working state on load, pre-filled with the owner's own info.
+      const DEFAULT_NAME = "Bùi Minh Thư";
+      const DEFAULT_DOB = "2006-10-14";
+      fullNameInput.value = DEFAULT_NAME;
+      dobInput.value = DEFAULT_DOB;
       try {
-        calculateAndRender(EXAMPLE_NAME, EXAMPLE_DOB, true);
+        calculateAndRender(DEFAULT_NAME, DEFAULT_DOB, false);
       } catch (err) {
-        // Should never happen with the fixed example, but fail quietly rather than block the page.
+        // Should never happen with the fixed default, but fail quietly rather than block the page.
         console.error(err);
       }
     })();
